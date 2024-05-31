@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TrekBuddies</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- fonts -->
+    <link rel="stylesheet" href="font/fonts.css">
+    <!-- normalize css -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/utility.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <!-- navbar  -->
+    <nav class="navbar">
+        <div class="container flex">
+            <a href="index.html" class="site-brand">
+                Trek<span>Buddies</span>
+            </a>
+
+            <button type="button" id="navbar-show-btn" class="flex">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div id="navbar-collapse">
+                <button type="button" id="navbar-close-btn" class="flex">
+                    <i class="fas fa-times"></i>
+                </button>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="group.html" class="nav-link" id="group-link">Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="register.html" class="nav-link" id="register-link">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="login.html" class="nav-link" id="login-link">Login</a>
+                    </li>
+                    <li class="nav-item" id="profile-link" style="display: none;">
+                        <a href="profile.html" class="nav-link">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                    <!-- Logout button -->
+                    <li class="nav-item" id="logout-btn" style="display: none;">
+                        <button id="logout-button" class="nav-link"><i class="fas fa-power-off"></i></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <body>
+        <header class="flex">
+            <div class="container">
+                <div class="header-title">
+                    <h1>Login Here</h1>
+                </div>
+                <section id="login">
+                    <div class="login-box">
+                        <h2>Login</h2>
+                        <form id="login-form" onsubmit="loginUser(); return false;">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" required>
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" required>
+                            <button type="submit">Login</button>
+                            <div id="error-message" style="color: red;"></div>
+                        </form>
+                        <p style="color: white;">Don't have an account? <a href="register.html" style="color: white;">
+                                Create User</a></p>
+                </section>
+            </div>
+            </section>
+            <!-- <script>
+            async function loginUser() {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+    
+                try {
+                    const response = await fetch('http://localhost:3000/api/users/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+    
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        document.getElementById('error-message').innerText = errorData.message;
+                        return;
+                    }
+    
+                    const data = await response.json();
+                    alert('Login successful!');
+                    console.log('Token:', data.token);
+                    // Redirect or save token as needed
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('error-message').innerText = 'An error occurred. Please try again.';
+                }
+            }
+        </script> -->
+
+        </header>
+
+        <footer class="py-4">
+            <div class="container footer-row">
+                <div class="footer-item">
+                    <a href="index.html" class="site-brand">
+                        Trek<span>Buddies</span>
+                    </a>
+                    <p class="text">An online “Travel Buddy Finder” for travel
+                        together in India. Now, there is no need to plan trips
+                        or last minute cancel, because this will help you
+                        to connect travellers across India for group trips.</p>
+                </div>
+
+                <div class="footer-item">
+                    <h2>Follow us on: </h2>
+                    <ul class="social-links">
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-pinterest"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fab fa-google-plus"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subscribe-form footer-item">
+                    <h2>Subscribe for Newsletter!</h2>
+                    <form class="flex">
+                        <input type="email" placeholder="Enter Email" class="form-control">
+                        <input type="submit" class="btn" value="Subscribe">
+                    </form>
+                </div>
+            </div>
+        </footer>
+        <!-- <script>
+    document.getElementById('login-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = {
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+        };
+
+        try {
+            const response = await fetch('http://localhost:3000/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                console.log('Login successful:', result);
+                alert('Login successful!');
+            } else {
+                const error = await response.json();
+                console.error('Error logging in:', error);
+                alert('Error logging in: ' + error.message);
+            }
+        } catch (err) {
+            console.error('Network error:', err);
+            alert('Network error: ' + err.message);
+        }
+    });
+</script> -->
+        <script src="./backend/index.js"></script>
+        <script src="./script.js"></script>
+
+    </body>
+
+</html>

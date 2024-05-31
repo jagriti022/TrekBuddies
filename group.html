@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TrekBuddies</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- fonts -->
+    <link rel="stylesheet" href="font/fonts.css">
+    <!-- normalize css -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/utility.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+        integrity="sha512-Gd4fKZ1T2R1J+/x9Tc1CNf9WkgmCOHgbNvOWvCK9k/H72wzW2slkxCnNaj1a0htlkSRlFzHcI29vfC0wsJi+Aw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container flex">
+            <a href="index.html" class="site-brand">
+                Trek<span>Buddies</span>
+            </a>
+
+            <button type="button" id="navbar-show-btn" class="flex">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div id="navbar-collapse">
+                <button type="button" id="navbar-close-btn" class="flex">
+                    <i class="fas fa-times"></i>
+                </button>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="group.html" class="nav-link">Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="register.html" class="nav-link">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="login.html" class="nav-link" id="login-link">Login</a>
+                    </li>
+                    <li class="nav-item" id="profile-link" style="display: none;">
+                        <a href="profile.html" class="nav-link">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                    <!-- Logout button -->
+                    <li class="nav-item" id="logout-btn" style="display: none;">
+                        <button id="logout-button" class="nav-link"><i class="fas fa-power-off"></i></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- end of navbar  -->
+
+    <!-- header -->
+    <header class="flex">
+        <div class="container">
+            <div class="header-title">
+                <h1>Leave Your Footprints</h1>
+            </div>
+            <main>
+                <section id="create-group">
+                    <h2>Create Group</h2>
+                    <form id="create-group-form" onsubmit="createGroup(); return false;">
+                        <label for="group-name">Group Name:</label>
+                        <input type="text" id="group-name" required>
+                        <label for="monument">Monument:</label>
+                        <input type="text" id="monument" required>
+                        <button type="submit">Create Group</button>
+                    </form>
+                </section>
+
+                <!-- Join Group Form -->
+                <div class=<section id="join-group">
+                    <h2>Join Group</h2>
+                    <form id="join-group-form" onsubmit="joinGroup(); return false;">
+                        <label for="group-name">Group Name</label>
+                        <input type="text" id="name" required>
+                        <label for="group-id">Group ID:</label>
+                        <input type="text" id="group-id" required>
+                        <label for="user-id">User ID:</label>
+                        <input type="text" id="user-id" required>
+                        <button type="submit">Join Group</button>
+                    </form>
+
+                    <h3>Available Groups</h3>
+                    <ul id="group-list">
+
+                    </ul>
+
+
+                    <script>
+                        async function fetchGroups() {
+                            const response = await fetch('http://localhost:3000/api/groups/list');
+                            const groups = await response.json();
+                            const groupList = document.getElementById('group-list');
+                            groupList.innerHTML = '';
+
+                            // Fetch and display each group's details
+                            for (const group of groups) {
+                                const listItem = document.createElement('li');
+
+                                // Fetch group details
+                                const groupDetails = await getGroupDetails(group._id);
+
+                                // Display group details
+                                listItem.textContent = `Group: ${group.name}, Monument: ${group.monument}, ID: ${group._id}, Details: ${JSON.stringify(groupDetails)}`;
+
+                                // Create the "Join" button
+                                const joinButton = document.createElement('button');
+                                joinButton.textContent = 'Join';
+                                joinButton.addEventListener('click', async () => {
+                                    await joinGroup(group._id);
+                                });
+
+                                // Append the button to the list item
+                                listItem.appendChild(joinButton);
+
+                                // Append the list item to the group list
+                                groupList.appendChild(listItem);
+                            }
+                        }
+
+                        async function joinGroup(groupId) {
+                            try {
+                                const response = await fetch(`http://localhost:3000/api/groups/join/${groupId}`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                });
+
+                                if (response.ok) {
+                                    const groupDetails = await getGroupDetails(groupId);
+                                    alert(`Successfully joined the group! Group details: ${JSON.stringify(groupDetails)}`);
+                                } else {
+                                    const error = await response.json();
+                                    alert(`Failed to join the group: ${error.message}`);
+                                }
+                            } catch (error) {
+                                console.error('Error joining group:', error);
+                                alert('An error occurred while trying to join the group.');
+                            }
+                        }
+
+                        async function getGroupDetails(groupId) {
+                            try {
+                                const response = await fetch(`http://localhost:3000/ggd/${groupId}`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                });
+
+                                if (response.ok) {
+                                    const data = await response.json();
+                                    return data.group;
+                                } else {
+                                    const error = await response.json();
+                                    console.error('Failed to fetch group details:', error);
+                                    return null;
+                                }
+                            } catch (error) {
+                                console.error('Error fetching group details:', error);
+                                return null;
+                            }
+                        }
+
+                        // Call the function to fetch and display groups when the page loads
+                        document.addEventListener('DOMContentLoaded', fetchGroups);
+
+                    </script>
+                    <section id="user-details">
+                        <h2>User Details</h2>
+                        <button onclick="fetchUserDetails()">Get User ID</button>
+                        <p id="user-info"></p>
+                    </section>
+
+                    <script>
+                        async function fetchUserDetails() {
+                            const userId = 'YOUR_USER_ID'; // Replace with the logic to get the logged-in user's ID
+                            const response = await fetch(`http://localhost:3000/api/users/${userId}`);
+                            const user = await response.json();
+                            const userInfo = document.getElementById('user-info');
+                            userInfo.textContent = `User: ${user.name}, Email: ${user.email}, ID: ${user._id}`;
+                        }
+
+                        // Call fetchUserDetails if you have the user ID readily available after login
+                        // fetchUserDetails();
+                    </script>
+                    </section>
+            </main>
+        </div>
+    </header>
+
+    <!-- footer -->
+    <footer class="py-4">
+        <div class="container footer-row">
+            <div class="footer-item">
+                <a href="index.html" class="site-brand">
+                    Trek<span>Buddies</span>
+                </a>
+                <p class="text">An online “Travel Buddy Finder” for travel
+                    together in India. Now, there is no need to plan trips
+                    or last minute cancel, because this will help you
+                    to connect travellers across India for group trips.</p>
+            </div>
+
+            <div class="footer-item">
+                <h2>Follow us on: </h2>
+                <ul class="social-links">
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-google-plus"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subscribe-form footer-item">
+                <h2>Subscribe for Newsletter!</h2>
+                <form class="flex">
+                    <input type="email" placeholder="Enter Email" class="form-control">
+                    <input type="submit" class="btn" value="Subscribe">
+                </form>
+            </div>
+        </div>
+    </footer>
+    <!-- end of footer -->
+    <script src="./backend/index.js"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>

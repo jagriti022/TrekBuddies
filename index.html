@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TrekBuddies</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- fonts -->
+    <link rel="stylesheet" href="font/fonts.css">
+    <!-- normalize css -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/utility.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+</head>
+
+<body>
+    <!-- navbar  -->
+    <nav class="navbar">
+        <div class="container flex">
+            <a href="index.html" class="site-brand">
+                Trek<span>Buddies</span>
+            </a>
+
+            <button type="button" id="navbar-show-btn" class="flex">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div id="navbar-collapse">
+                <button type="button" id="navbar-close-btn" class="flex">
+                    <i class="fas fa-times"></i>
+                </button>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item" id="group-link" style="display: none;">
+                        <a href="group.html" class="nav-link">Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="register.html" class="nav-link" id="register-link">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="login.html" class="nav-link" id="login-link">Login</a>
+                    </li>
+                    <li class="nav-item" id="profile-link" style="display: none;">
+                        <a href="profile.html" class="nav-link">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                    <!-- Logout button -->
+                    <li class="nav-item" id="logout-btn" style="display: none;">
+                        <button id="logout-button" class="nav-link"><i class="fas fa-power-off"></i></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- end of navbar  -->
+
+    <!-- header -->
+    <header class="flex">
+        <div class="container">
+            <div class="header-title">
+                <h1>Leave Your Footprints</h1>
+            </div>
+            <!-- <div class = "header-form">
+                    <h2>Choose your Travel location:</h2>
+                    <form class = "flex">
+                        <input type = "text" class = "form-control" id="main-search" placeholder="Destination name">
+                        <button type="submit" class = "btn" value = "Search">SEARCH</button>
+                    </form>
+                </div>
+            </div> -->
+    </header>
+    <!-- header -->
+
+    <!-- featured section -->
+    <section id="featured" class="py-4">
+        <div class="container">
+            <div class="title-wrap">
+                <span class="sm-title">know about some places before your travel</span>
+                <h2 class="lg-title">featured places</h2>
+            </div>
+
+            <div class="featured-row">
+                <div class="featured-item my-2 shadow">
+                    <img src="images/rajasthan.jpg" alt="featured place">
+                    <div class="featured-item-content">
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Jaipur, India
+                        </span>
+                        <div>
+                            <p class="text">Jaipur is a regal paradise of culture and legacy, rich with architectural
+                                jewels, and is affectionately dubbed "The Pink City" for the pink color of its old
+                                structures.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-item my-2 shadow">
+                    <img src="images/Darjeeling.jpg" alt="featured place">
+                    <div class="featured-item-content">
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Darjeeling, India
+                        </span>
+                        <div>
+                            <p class="text">Nestled in the foothills of the Himalayas, Darjeeling is a serene hill
+                                station famed for its lush tea gardens, stunning vistas, and vibrant culture.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-item my-2 shadow">
+                    <img src="images/goa.jpg" alt="featured place">
+                    <div class="featured-item-content">
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Goa, India
+                        </span>
+                        <div>
+                            <p class="text">Bask in the sun-kissed shores and vibrant culture of Goa, India's coastal
+                                gem.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-item my-2 shadow">
+                    <img src="images/kolkata.jpg" alt="featured place">
+                    <div class="featured-item-content">
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Kolkata, India
+                        </span>
+                        <div>
+                            <p class="text">Discover the soul of India in Kolkata, a city pulsating with history,
+                                culture, and a rich tapestry of flavors.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-item my-2 shadow">
+                    <img src="images/kanyakumari.jpg" alt="featured place">
+                    <div class="featured-item-content">
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Kanyakumari
+                        </span>
+                        <div>
+                            <p class="text">This coastal town is renowned for its stunning sunrises and sunsets,
+                                painting the sky in a riot of colors.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-item my-2 shadow">
+                    <img src="images/delhi.jpg" alt="featured place">
+                    <div class="featured-item-content">
+                        <span>
+                            <i class="fas fa-map-marker-alt"></i>
+                            Delhi, India
+                        </span>
+                        <div>
+                            <p class="text">Delhi, the dynamic heart of India, is a mesmerizing blend of history,
+                                culture, and modernity. Explore the ancient wonders of Old Delhi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end of featured section -->
+
+    <!-- services section -->
+    <section id="services" class="py-4">
+        <div class="container">
+            <div class="title-wrap">
+                <span class="sm-title">know about services that we offer</span>
+                <h2 class="lg-title">Our services</h2>
+            </div>
+
+            <div class="services-row">
+                <div class="services-item">
+                    <span class="services-icon">
+                        <i class="fas fa-hotel"></i>
+                    </span>
+                    <h3>Budget Friendly</h3>
+                    <p class="text">Explore affordably, adventure without breaking the bank.</p>
+                </div>
+
+                <div class="services-item">
+                    <span class="services-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </span>
+                    <h3>Travel Guide</h3>
+                    <p class="text">Navigate the world with our expert guidance.</p>
+
+                </div>
+
+                <div class="services-item">
+                    <span class="services-icon">
+                        <i class="fas fa-money-bill"></i>
+                    </span>
+                    <h3>24/7 Customer Service</h3>
+                    <p class="text">Embark on worry-free journeys with our dedicated support team.</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end of services section -->
+    <!-- video section -->
+    <section id="video">
+        <div class="video-wrapper flex">
+            <video loop>
+                <source src="videos/video-section.mp4" type="video/mp4">
+            </video>
+            <button type="button" id="play-btn">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- end of video section -->
+
+    <!-- footer -->
+    <footer class="py-4">
+        <div class="container footer-row">
+            <div class="footer-item">
+                <a href="index.html" class="site-brand">
+                    Trek<span>Buddies</span>
+                </a>
+                <p class="text">An online “Travel Buddy Finder” for travel
+                    together in India. Now, there is no need to plan trips
+                    or last minute cancel, because this will help you
+                    to connect travellers across India for group trips.</p>
+            </div>
+
+            <div class="footer-item">
+                <h2>Follow us on: </h2>
+                <ul class="social-links">
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fab fa-google-plus"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subscribe-form footer-item">
+                <h2>Subscribe for Newsletter!</h2>
+                <form class="flex">
+                    <input type="email" placeholder="Enter Email" class="form-control">
+                    <input type="submit" class="btn" value="Subscribe">
+                </form>
+            </div>
+        </div>
+    </footer>
+    <!-- end of footer -->
+
+    <!-- js -->
+    <script src="./backend/index.js"></script>
+    <script src="./script.js"></script>
+
+    <script>
+        // play/pause video
+        let video = document.querySelector('.video-wrapper video');
+        document.getElementById('play-btn').addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        });
+    </script>
+</body>
+
+</html>
